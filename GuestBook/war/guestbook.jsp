@@ -77,21 +77,23 @@ to include your name with greetings you post.</p>
 			//Get location if it exists
 			if(greeting.getProperty("latitude").equals("")) {
 				pageContext.setAttribute("greeting_location", "");
+				pageContext.setAttribute("greeting_accuracy", "");
 			} else {
 				String[] location = {(String) greeting.getProperty("latitude"), (String) greeting.getProperty("longitude")};
 				locations.add(location);
 				pageContext.setAttribute("greeting_location", "(" + greeting.getProperty("latitude") + ", " + greeting.getProperty("longitude") + ")");
+				pageContext.setAttribute("greeting_accuracy", (String) greeting.getProperty("accuracy"));
 			}
 			
             if (greeting.getProperty("user") == null) {
                 %>
-                <p>An anonymous person <span class="maplink" onclick="centerMap${fn:escapeXml(greeting_location)}">${fn:escapeXml(greeting_location)}</span> wrote:</p>
+                <p>An anonymous person <span class="maplink" onclick="centerMap${fn:escapeXml(greeting_location)}">${fn:escapeXml(greeting_location)}</span> Accuracy:${fn:escapeXml(greeting_accuracy)} meters wrote:</p>
                 <%
             } else {
                 pageContext.setAttribute("greeting_user",
                                          greeting.getProperty("user"));
                 %>
-                <p><b>${fn:escapeXml(greeting_user.nickname)}</b> <span class="maplink" onclick="centerMap${fn:escapeXml(greeting_location)}">${fn:escapeXml(greeting_location)}</span> wrote:</p>
+                <p><b>${fn:escapeXml(greeting_user.nickname)}</b> <span class="maplink" onclick="centerMap${fn:escapeXml(greeting_location)}">${fn:escapeXml(greeting_location)}</span> Accuracy:${fn:escapeXml(greeting_accuracy)} meters wrote:</p>
                 <%
             }
             %>
@@ -113,6 +115,7 @@ to include your name with greetings you post.</p>
       <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
         <input type="hidden" name="userLatitude" value=""/>
         <input type="hidden" name="userLongitude" value=""/>
+        <input type="hidden" name="userAccuracy" value=""/>
     </form>    
     <div id="map-canvas"/>
   </body>
@@ -122,7 +125,6 @@ to include your name with greetings you post.</p>
 	Saves the user's latitude and longitude in the web form
 	
 	@author	alvinlao
-	@return	array		[lat, long]
 */
 function getLocation() {
 	if(navigator.geolocation) {
@@ -136,6 +138,7 @@ function getLocation() {
 		//Put the lat and long in the form's two hidden fields: "userLatitude" and "userLongitude"
 		document.forms['guestbookForm'].elements['userLatitude'].value = position.coords.latitude;
 		document.forms['guestbookForm'].elements['userLongitude'].value = position.coords.longitude;
+		document.forms['guestbookForm'].elements['userAccuracy'].value = position.coords.accuracy;
 	}
 	
 	//Fail call-back function
