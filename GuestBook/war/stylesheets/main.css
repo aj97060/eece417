@@ -1,4 +1,9 @@
+html { 
+	height: 100% 
+}
+
 body {
+	height: 100%;
 	color: white;
     font-family: monospace;
     background-color: #000000;
@@ -7,3 +12,19 @@ a:link {color:#00FF00;}      /* unvisited link */
 a:visited {color:#76EE00;}  /* visited link */
 a:hover {color:#00FFFF;}  /* mouse over link */
 a:active {color:#00CDCD;}  /* selected link */
+
+/* Map */
+#map-canvas { 
+	display: block;
+	height: 500px;
+	width: 100%;
+	clear: both;
+}
+
+.maplink {
+	cursor: pointer;
+	display: inline;
+	padding: 0;
+	margin: 0;
+	text-decoration: underline;
+}
