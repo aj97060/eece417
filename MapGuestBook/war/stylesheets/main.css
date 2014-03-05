@@ -1,0 +1,28 @@
+html { 
+	height: 100% 
+}
+
+body {
+    font-family: Verdana, Helvetica, sans-serif;
+	font-weight:bold;
+    background-color: #E6E6E6;
+    height: 100%; 
+    margin: 0px; 
+    padding: 0px; 
+}
+
+#map-canvas { 
+	width: 100%;
+	height: 80%; 
+}
+
+.msglist {
+	width:260px;
+	height:160px;	
+	overflow-y:auto;
+	background-color:#FFFFFF;	
+}
+
+#oldMsgList {
+	display:none;
+}
