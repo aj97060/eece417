@@ -44,7 +44,11 @@ public class QueryProcessorServlet extends HttpServlet {
         Query query = new Query("UBCEECE4172014MapGreeting", guestbookKey);
         query.addSort("date", Query.SortDirection.DESCENDING);
         
-        List<Entity> greetings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
+        // @PartA New filter
+        Filter markerFilter = new FilterPredicate("markerID", Query.FilterOperator.EQUAL, reqMarkerID);
+        query.setFilter(markerFilter);
+        
+        List<Entity> greetings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(10));	// @PartA 5 -> 10
         
         String responseHTMLString = "";
         
