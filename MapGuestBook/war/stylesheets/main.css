@@ -20,9 +20,13 @@ body {
 	width:260px;
 	height:160px;	
 	overflow-y:auto;
-	background-color:#FFFFFF;	
+	background-color: #E6E6E6;	/* @PartB Change background color */	
 }
 
 #oldMsgList {
 	display:none;
+}
+
+.userName {
+	font-weight: bold;
 }
