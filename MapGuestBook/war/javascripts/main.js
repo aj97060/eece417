@@ -150,7 +150,7 @@ function postAjaxRequest(postMsg, markerID, guestbookName, rspMsgList) {
 		xmlHttpReq.open("POST", url, true);
 		xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');		
 		
-		var postMsgValue = document.getElementById(postMsg).value;
+		var postMsgValue = encodeURIComponent(document.getElementById(postMsg).value);
 		var markerIDValue = markerID; 
 		var guestbookNameValue = guestbookName; 
     	
