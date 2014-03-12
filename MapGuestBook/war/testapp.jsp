@@ -26,7 +26,7 @@
 	  
 		function initialize() {
 					
-			var myLatlng = new google.maps.LatLng(37.33152141760375,-122.04732071026367);   
+			var myLatlng = new google.maps.LatLng(49.25496336,-123.2441247);   
 		   
 			var mapOptions = {
 			  center: myLatlng,
@@ -69,7 +69,7 @@
 			  position: myLatlng,
 			  map: map,
 			  icon: icons['parking'].icon,			  
-			  title: 'Custom Marker!'
+			  title: 'Parking'
 			});    
 			
 			google.maps.event.addListener(marker, 'click', function() {
@@ -104,14 +104,15 @@
 <%
     } else {
 %>
-<p>Hello!
+<p>Welcome to Parking Finder!
 <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
-to include your name with greetings you post.</p>
+</p>
 <%
     }
 %>
-<p>Guestbook: ${fn:escapeXml(guestbookName)}</p>
-
+<div id="guestbook">
+Guestbook: ${fn:escapeXml(guestbookName)}
+</div>
 <script type="text/javascript">guestbookNameString = "${fn:escapeXml(guestbookName)}";</script>
 <!--<script type="text/javascript">alert(guestbookNameString);</script>-->
 
@@ -168,7 +169,7 @@ to include your name with greetings you post.</p>
     <div id="map-canvas"></div>
     
 	<br/>
-	<div>Please click on a marker to view and/or post greetings.</div>
-		
+	<div id="usagenote" >Please click on a marker to view and/or post greetings.</div>
+	<div id="source" >Original parking location available <a href="http://www.parking.ubc.ca/find-parking">here</a>  </div>	
   </body>
 </html>

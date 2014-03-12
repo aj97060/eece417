@@ -2,6 +2,7 @@ var map;
 var xmlHttpReq = null;
 var selectedMarkerID;
 var guestbookNameString = "";
+var infowindow;
 
 function loadMarkers() {
 	//alert("loadMarkers");
@@ -83,7 +84,7 @@ function httpCallBackFunction_loadMarkers() {
 }
 
 function addInfowindow(marker, content) {
-	var infowindow = new google.maps.InfoWindow({
+	infowindow = new google.maps.InfoWindow({
 			content: content
 	});
 	google.maps.event.addListener(marker, 'click', function() {
@@ -97,6 +98,9 @@ function addInfowindow(marker, content) {
 
 function getAjaxRequest() {
 	//alert("getAjaxRequest");
+	if(!infowindow){
+		infowindow.close();
+	}
 	try {
 		xmlHttpReq = new XMLHttpRequest();
 		xmlHttpReq.onreadystatechange = httpCallBackFunction_getAjaxRequest;

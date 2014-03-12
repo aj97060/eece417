@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?> 
 <markers>
-	<marker srl="1" lat="37.37152141760375" lng="-122.04832077026367"></marker>
-	<marker srl="2" lat="37.370020759338416" lng="-122.04076766967773"></marker>
-	<marker srl="3" lat="37.36756507197194" lng="-122.03201293945312"></marker>
-	<marker srl="4" lat="37.35965175480798" lng="-122.05020904541015"></marker>
-	<marker srl="5" lat="37.35937886691822" lng="-122.0416259765625"></marker>
-	<marker srl="6" lat="37.35883308816198" lng="-122.03166961669922"></marker>		
-	<marker srl="7" lat="37.35173760316267" lng="-122.03269958496094"></marker>
-	<marker srl="8" lat="37.35173760316267" lng="-122.04179763793945"></marker>
-	<marker srl="9" lat="37.35173760316267" lng="-122.05072402954101"></marker>
-	<marker srl="10" lat="37.34450497634804" lng="-122.04986572265625"></marker>
-	<marker srl="11" lat="37.34464144745374" lng="-122.04145431518554"></marker>
-	<marker srl="12" lat="37.33781758834194" lng="-122.03201293945312"></marker>
-	<marker srl="13" lat="37.35201051883434" lng="-122.01433181762695"></marker>
+	<marker srl="1" lat="49.2673915" lng="-123.2573533"></marker>
+	<marker srl="2" lat="49.26078222" lng="-123.2454014"></marker>
+	<marker srl="3" lat="49.261620176786" lng="-123.24309528532"></marker>
+	<marker srl="4" lat="49.269046471181" lng="-123.25097440454"></marker>
+	<marker srl="5" lat="49.27087782" lng="-123.2578683"></marker>
+	<marker srl="6" lat="49.266062608329" lng="-123.25805952117"></marker>		
+	<marker srl="7" lat="49.26744601" lng="-123.2470858"></marker>
+	<marker srl="8" lat="49.263426761536" lng="-123.24782870883"></marker>
+	<marker srl="9" lat="49.26048814" lng="-123.2516241"></marker>
+	<marker srl="10" lat="49.26168345" lng="-123.2451466"></marker>
+	<marker srl="11" lat="49.263426761536" lng="-123.24782870883"></marker>
+	<marker srl="12" lat="49.256735" lng="-123.241024"></marker>
+	<marker srl="13" lat="49.25993499" lng="-123.2498002"></marker>
 </markers>
