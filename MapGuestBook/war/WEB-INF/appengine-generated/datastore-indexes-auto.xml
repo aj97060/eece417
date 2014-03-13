@@ -1,15 +1,15 @@
-<!-- Indices written at Wed, 12 Mar 2014 14:34:39 PDT -->
+<!-- Indices written at Wed, 12 Mar 2014 18:36:06 PDT -->
 
 <datastore-indexes>
 
     <!-- Used 2 times in query history -->
-    <datastore-index kind="UBCEECE4172014MapGreeting" ancestor="true" source="auto">
-        <property name="markerID" direction="asc"/>
+    <datastore-index kind="Greeting" ancestor="true" source="auto">
         <property name="date" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 2 times in query history -->
-    <datastore-index kind="Greeting" ancestor="true" source="auto">
+    <!-- Used 4 times in query history -->
+    <datastore-index kind="UBCEECE4172014MapGreeting" ancestor="true" source="auto">
+        <property name="markerID" direction="asc"/>
         <property name="date" direction="desc"/>
     </datastore-index>
 

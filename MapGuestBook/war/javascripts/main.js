@@ -55,6 +55,7 @@ function httpCallBackFunction_loadMarkers() {
 				var lat = parseFloat(markerElement.getAttribute("lat"));
 				var lng = parseFloat(markerElement.getAttribute("lng"));
 				var srl = markerElement.getAttribute("srl");
+				var markerName = markerElement.getAttribute("name");
 							
 				var myLatlng = new google.maps.LatLng(lat, lng);
 								
@@ -63,19 +64,19 @@ function httpCallBackFunction_loadMarkers() {
 				var msglist = "msglist_"+mrkID; 
 				var gstBkNm = guestbookNameString; // "default"; 
 				
-				var contentString  = '#' + mrkID + '<div id="content">' +  	
+				var contentString  = '<div id="InfoWindowTitle">' + markerName + '</div>' + '<div id="content">' +  	
 				  '<div class="msglist" id="'+ msglist +'"></div>' + '</div>' +
-				  '<textarea id="'+ msgbox +'" rows="2" cols="20"></textarea>' +			  
-				  '<input type="button" value="Post" onclick="postAjaxRequest('+ 
+				  '<textarea name="InfoWindow" id="'+ msgbox +'" rows="2" cols="20" ></textarea>' +			  
+				  '<input id="InfoWindowButton" type="button" value="Post" onclick="postAjaxRequest('+ 
 					"'" + msgbox + "', '" + mrkID + "', '" + gstBkNm + "', '" + msglist + "'" +')"/>';  
 														
 				var marker = new google.maps.Marker({       
 					position: myLatlng,
 					map: map,
-					title: ''+mrkID
+					title: ''+markerName
 				});
 								
-				addInfowindow(marker, contentString);
+				addInfowindow(marker, contentString, mrkID);
 			}			
 		}else{
 			alert("No data.");
@@ -83,12 +84,12 @@ function httpCallBackFunction_loadMarkers() {
 	}		
 }
 
-function addInfowindow(marker, content) {
+function addInfowindow(marker, content, mrkID) {
 	infowindow = new google.maps.InfoWindow({
 			content: content
 	});
 	google.maps.event.addListener(marker, 'click', function() {
-		selectedMarkerID = marker.getTitle();
+		selectedMarkerID = mrkID;
 		infowindow.setContent(""+content);
 		infowindow.setPosition(marker.getPosition());
 		infowindow.open(marker.get('map'), marker);		 

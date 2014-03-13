@@ -11,21 +11,50 @@ body {
     padding: 0px; 
 }
 
+textarea[name=InfoWindow] {
+    resize: none;
+    float:left;
+}
+
+#InfoWindowTitle {
+    font-size:medium;
+    font-weight:bold;
+    color:blue;
+}
+
+
+#InfoWindowButton {
+    float: right;
+}
+
+#bigHeader { 
+	text-align: center;
+	color:#FFFFFF;
+	text-decoration:underline;
+}
+
+
+#signInHeader { 
+	font-size:small;
+	text-align: right;
+}
+
 #map-canvas { 
 	width: 100%;
 	height: 80%; 
 }
 
 #guestbook{ 
-	font-size:medium
+	font-size:x-small;
 }
 
 #usagenote { 
-	font-size:small
+	font-size:small;
+	text-align: center;
 }
 
 #source { 
-	font-size:x-small
+	font-size:x-small;
 }
 
 

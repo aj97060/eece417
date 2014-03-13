@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?> 
 <markers>
-	<marker srl="1" lat="49.2673915" lng="-123.2573533"></marker>
-	<marker srl="2" lat="49.26078222" lng="-123.2454014"></marker>
-	<marker srl="3" lat="49.261620176786" lng="-123.24309528532"></marker>
-	<marker srl="4" lat="49.269046471181" lng="-123.25097440454"></marker>
-	<marker srl="5" lat="49.27087782" lng="-123.2578683"></marker>
-	<marker srl="6" lat="49.266062608329" lng="-123.25805952117"></marker>		
-	<marker srl="7" lat="49.26744601" lng="-123.2470858"></marker>
-	<marker srl="8" lat="49.263426761536" lng="-123.24782870883"></marker>
-	<marker srl="9" lat="49.26048814" lng="-123.2516241"></marker>
-	<marker srl="10" lat="49.26168345" lng="-123.2451466"></marker>
-	<marker srl="11" lat="49.263426761536" lng="-123.24782870883"></marker>
-	<marker srl="12" lat="49.256735" lng="-123.241024"></marker>
-	<marker srl="13" lat="49.25993499" lng="-123.2498002"></marker>
+	<marker srl="1" lat="49.2673915" lng="-123.2573533" name="Parking near: UBC School of Music"></marker>
+	<marker srl="2" lat="49.26078222" lng="-123.2454014" name="Parking near: UBC Osborne Center">
+	</marker>
+	<marker srl="3" lat="49.261620176786" lng="-123.24309528532"
+		name="Thunderbird Parkade">
+	</marker>
+	<marker srl="4" lat="49.269046471181" lng="-123.25097440454"
+		name="North Parkade">
+	</marker>
+	<marker srl="5" lat="49.27087782" lng="-123.2578683" name="Parking near: Museum of Anthropology"></marker>
+	<marker srl="6" lat="49.266062608329" lng="-123.25805952117"
+		name="Fraser River Parkade">
+	</marker>
+	<marker srl="7" lat="49.26744601" lng="-123.2470858" name="Parking near: War Memorial Gym"></marker>
+	<marker srl="8" lat="49.26490146" lng="-123.2450795"
+		name="Parking near: UBC Hospital">
+	</marker>
+	<marker srl="9" lat="49.26048814" lng="-123.2516241" name="Parking near: Ritsumeikan residence"></marker>
+	<marker srl="10" lat="49.26168345" lng="-123.2451466" name="Parking near Falculty of Pharmaceutical"></marker>
+	<marker srl="11" lat="49.25496336" lng="-123.2441247"
+		name="Parking near: Thunderbird Stadium">
+	</marker>
+	<marker srl="12" lat="49.256735" lng="-123.241024" name="Parking near: Thunderbird Park"></marker>
+	<marker srl="13" lat="49.25993499" lng="-123.2498002" name="Parking near: Thunderbird residence"></marker>
 </markers>

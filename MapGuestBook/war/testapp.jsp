@@ -26,11 +26,11 @@
 	  
 		function initialize() {
 					
-			var myLatlng = new google.maps.LatLng(49.25496336,-123.2441247);   
+			var myLatlng = new google.maps.LatLng(49.263426761536,-123.24782870883);   
 		   
 			var mapOptions = {
 			  center: myLatlng,
-			  zoom: 12
+			  zoom: 14
 			};
 			
 			map = new google.maps.Map(document.getElementById("map-canvas"),
@@ -42,10 +42,10 @@
 			var msglist = "msglist_";
 									
 			// @PartC Added '0' to msglist ID
-			var contentString  = '#' + mrkID + '<div id="content">' +  	
+			var contentString  = '<div id="InfoWindowTitle">' + 'Health Sciences Parkade' + '</div>' +'<div id="content">' +  	
 			  '<div class="msglist" id="'+ msglist +'0"></div>' + '</div>' +
-			  '<textarea id="'+ msgbox +'" rows="2" cols="20"></textarea>' +			  
-			  '<input type="button" value="Post" onclick="postAjaxRequest('+ 
+			  '<textarea name="InfoWindow" id="'+ msgbox +'" rows="2" cols="20" ></textarea>' +			  
+			  '<input id="InfoWindowButton" type="button" value="Post" onclick="postAjaxRequest('+ 
 				"'" + msgbox + "', '" + mrkID + "', '" + gstBkNm + "', '" + msglist + "'" +')"/>';  
 			
 			var infowindow = new google.maps.InfoWindow({
@@ -69,7 +69,7 @@
 			  position: myLatlng,
 			  map: map,
 			  icon: icons['parking'].icon,			  
-			  title: 'Parking'
+			  title: 'Health Sciences Parkade'
 			});    
 			
 			google.maps.event.addListener(marker, 'click', function() {
@@ -87,7 +87,8 @@
     
   </head>
   <body>
-  
+  </br>
+  <div id="bigHeader">Welcome to Parking Finder</div>
 <%
     String guestbookName = request.getParameter("guestbookName");
     if (guestbookName == null) {
@@ -99,12 +100,12 @@
     if (user != null) {
       pageContext.setAttribute("user", user);
 %>
-<p>Hello, ${fn:escapeXml(user.nickname)}! (You can
+<p id="signInHeader">Hello, ${fn:escapeXml(user.nickname)}! (
 <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
 <%
     } else {
 %>
-<p>Welcome to Parking Finder!
+<p id="signInHeader">
 <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
 </p>
 <%
@@ -130,7 +131,7 @@ Guestbook: ${fn:escapeXml(guestbookName)}
     
     if (greetings.isEmpty()) {
         %>
-        <p>Guestbook '${fn:escapeXml(guestbookName)}' has no messages.</p>
+        <p>Guestbook '${fn:escapeXml(guestbookName)}' has no comment on this parking.</p>
         <%
     } else {
         %>
@@ -158,8 +159,8 @@ Guestbook: ${fn:escapeXml(guestbookName)}
 %>
 
     <form action="/sign" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Post Greeting" /></div>
+      <div><textarea name="content" rows="3" cols="60" resize="none"></textarea>
+      <input type="submit" value="Post" /></div>
       <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
     </form>
     
@@ -170,6 +171,7 @@ Guestbook: ${fn:escapeXml(guestbookName)}
     
 	<br/>
 	<div id="usagenote" >Please click on a marker to view and/or post greetings.</div>
-	<div id="source" >Original parking location available <a href="http://www.parking.ubc.ca/find-parking">here</a>  </div>	
+	<br/>
+	<div id="source" >UBC parking location available <a href="http://www.parking.ubc.ca/find-parking">here</a>  </div>	
   </body>
 </html>
