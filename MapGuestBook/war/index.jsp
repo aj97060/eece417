@@ -18,10 +18,14 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
     <meta charset="utf-8">       
     <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
     <script type="text/javascript" src="/javascripts/main.js"></script>        
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIajFRrg2dFzP5hMXVeAHyVsS75dEQP4s&sensor=true">
     </script>    
+    <link rel="stylesheet" href="/javascripts/jquery-ui/ui-lightness/jquery-ui-1.10.4.custom.css">
+    <script src="/javascripts/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+    
     <script type="text/javascript"> 
 	  
 		function initialize() {
@@ -32,63 +36,101 @@
 			  center: myLatlng,
 			  zoom: 14
 			};
-			
+				
 			map = new google.maps.Map(document.getElementById("map-canvas"),
-			  mapOptions);		
-						
-			var mrkID = "0";
-			var gstBkNm = guestbookNameString; //"default";
-			var msgbox = "msgbox_";	
-			var msglist = "msglist_";
-									
-			// @PartC Added '0' to msglist ID
-			var contentString  = '<div id="InfoWindowTitle">' + 'Health Sciences Parkade' + '</div>' +'<div id="content">' +  	
-			  '<div class="msglist" id="'+ msglist +'0"></div>' + '</div>' +
-			  '<textarea name="InfoWindow" id="'+ msgbox +'" rows="2" cols="20" ></textarea>' +			  
-			  '<input id="InfoWindowButton" type="button" value="Post" onclick="postAjaxRequest('+ 
-				"'" + msgbox + "', '" + mrkID + "', '" + gstBkNm + "', '" + msglist + "'" +')"/>';  
+			  mapOptions);	
+			  
+			// Load the selected markers	
+			loadMarkers();   
+		
 			
-			var infowindow = new google.maps.InfoWindow({
-			  content: contentString
-			}); 
-			
-			var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-			var icons = {
-  				parking: {
-    				icon: iconBase + 'parking_lot_maps.png'
-  				},
-  				library: {
-    				icon: iconBase + 'library_maps.png'
-  				},
-  				info: {
-    				icon: iconBase + 'info-i_maps.png'
-  				}
-			};
-						   
-			var marker = new google.maps.Marker({       
-			  position: myLatlng,
-			  map: map,
-			  icon: icons['parking'].icon,			  
-			  title: 'Health Sciences Parkade'
-			});    
-			
-			google.maps.event.addListener(marker, 'click', function() {
-			  selectedMarkerID = mrkID;  	
-			  infowindow.open(map, marker);
-			  getAjaxRequest();   
-			});        
-					
-			// Load the selected markers			
-			loadMarkers();       
+    		
+			    
 		}      
  	
 		google.maps.event.addDomListener(window, 'load', initialize);
+		
+		$( document ).ready(function() {
+		
+			 $(':checkbox').change(function() {
+   				refreshMap();
+			}); 
+		
+			//Filter panel sliders
+			$( "#time-range" ).slider({
+      			range: true,
+      			min: 0,
+     			max: 2359,
+      			values: [ 0, 2359 ],
+      			change: function( event, ui ) {
+      				refreshMap();
+     			 },
+     			 slide: function( event, ui ) {
+     			 	if(ui.values[ 0 ].toString().length == 3){
+      					hour_start = ui.values[ 0 ].toString().slice(0,1);
+      				}else{
+      					hour_start = ui.values[ 0 ].toString().slice(0,2);
+      				}
+      				if(ui.values[ 1 ].toString().length == 3){
+      					hour_end = ui.values[ 1 ].toString().slice(0,1);
+      				}else{
+      					hour_end = ui.values[1 ].toString().slice(0,2);
+      				}
+      			    min_start = Math.floor(parseInt(ui.values[ 0 ].toString().slice(-2))*0.6);
+      			    min_end = Math.floor(parseInt(ui.values[ 1 ].toString().slice(-2))*0.6);
+      			    if (min_start.toString().length == 1) {
+						min_start = min_start.toString() + "0";
+					}
+
+					if (min_end.toString().length == 1) {
+						min_end = min_end.toString() + "0";
+					}
+        			$( "#timeSliderOutput" ).val( "From " + hour_start+":"+min_start + " - To " + hour_end+":"+min_end );
+     			 }
+     			 
+    		});
+    		
+    		$( "#price-range" ).slider({
+      			range: true,
+      			min: 0,
+     			max: 15,
+      			values: [ 0, 15 ],
+      			slide: function( event, ui ) {
+        			$( "#priceSliderOutput" ).val( "Between $" + ui.values[ 0 ] + " and $" + ui.values[ 1 ] );
+     			 	refreshMap();
+     			 },
+      			change: function( event, ui ) {
+        			$( "#priceSliderOutput" ).val( "Between $" + ui.values[ 0 ] + " and $" + ui.values[ 1 ] );
+     			 	refreshMap();
+     			 }
+    		});
+    		
+    		$( "#score-range" ).slider({
+    			range: true,
+      			min: 0,
+     			max: 5,
+     			step: 1,
+     			values: [ 0, 5 ],
+     			slide: function( event, ui ) {
+        			$( "#scoreSliderOutput" ).val( "Between " + ui.values[ 0 ] + " and " + ui.values[ 1 ] );
+     			 	refreshMap();
+     			 },
+     			change: function( event, ui ) {
+        			$( "#scoreSliderOutput" ).val( "Between " + ui.values[ 0 ] + " and " + ui.values[ 1 ] );
+     			 	refreshMap();
+     			 }
+    		});
+    		
+    		
+    		refreshMap();
+    		
+		});
     </script>
     
   </head>
   <body>
   </br>
-  <div id="bigHeader">Welcome to Parking Finder</div>
+  <div id="bigHeader">OurParkingSpot</div>
 <%
     String guestbookName = request.getParameter("guestbookName");
     if (guestbookName == null) {
@@ -100,20 +142,17 @@
     if (user != null) {
       pageContext.setAttribute("user", user);
 %>
-<p id="signInHeader">Hello, ${fn:escapeXml(user.nickname)}! (
+<p id="signInHeader" value="in">${fn:escapeXml(user.nickname)}! (
 <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
 <%
     } else {
 %>
-<p id="signInHeader">
+<p id="signInHeader" value="out">
 <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
 </p>
 <%
     }
 %>
-<div id="guestbook">
-Guestbook: ${fn:escapeXml(guestbookName)}
-</div>
 <script type="text/javascript">guestbookNameString = "${fn:escapeXml(guestbookName)}";</script>
 <!--<script type="text/javascript">alert(guestbookNameString);</script>-->
 
@@ -166,7 +205,25 @@ Guestbook: ${fn:escapeXml(guestbookName)}
     
 </div> 
 <!-- Original -->
-	        
+	<div id="SidePanelSearch">Filter  </br>  </br>
+		Current availability: </br>
+		Show available <input class="filterCheckbox" type="checkbox"  checked="true"  id="avail"> </br>
+		Show unavailable <input type="checkbox" checked="true" id="unavail"></br>
+		Days: </br>
+		Sun  <input type="checkbox" checked="true" id="sunday"> 
+		Mon  <input type="checkbox" checked="true" id="monday"> 
+		Tue  <input type="checkbox" checked="true" id="tuesday"> 
+		Wed  <input type="checkbox" checked="true" id="wednesday"> 
+		Thu  <input type="checkbox" checked="true" id="thursday"> 
+		Fri  <input type="checkbox" checked="true" id="friday"> 
+		Sat  <input type="checkbox" checked="true" id="saturday"></br></br>
+		Time <input type="text" id="timeSliderOutput" ></br>
+		<div id="time-range"></div></br>
+		Price <input type="text" id="priceSliderOutput" >
+		</br><div id="price-range"></div></br>
+		Score <input type="text" id="scoreSliderOutput" >
+		</br><div id="score-range"></div></br>
+	</div>  
     <div id="map-canvas"></div>
     
 	<br/>

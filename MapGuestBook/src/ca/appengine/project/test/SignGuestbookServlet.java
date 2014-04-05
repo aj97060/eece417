@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class SignGuestbookServlet extends HttpServlet {
-    //@Override
+    
+	//@Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
                 throws IOException {
         UserService userService = UserServiceFactory.getUserService();
@@ -32,6 +33,8 @@ public class SignGuestbookServlet extends HttpServlet {
         String guestbookName = req.getParameter("guestbookName");
         String postMsg = req.getParameter("postMsg");
         String markerID = req.getParameter("markerID");
+        
+       
        
         Key guestbookKey = KeyFactory.createKey("UBCEECE4172014MapGuestbook", guestbookName);
         Date date = new Date();

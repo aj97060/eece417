@@ -15,7 +15,7 @@ public class TestAppEngineProjectServlet extends HttpServlet {
 
         if (user != null) {
             resp.setContentType("text/plain");
-            resp.getWriter().println("Hello, " + user.getNickname());
+            resp.getWriter().println(user.getNickname());
         } else {
             resp.sendRedirect(userService.createLoginURL(req.getRequestURI()));
         }

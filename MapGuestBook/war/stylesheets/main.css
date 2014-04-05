@@ -11,6 +11,22 @@ body {
     padding: 0px; 
 }
 
+#SidePanelSearch {
+	 float:left;
+}
+
+#MyReservationPane {
+	
+}
+
+#DetailedReservation {
+	
+}
+
+#MarkerPane {
+	
+}
+
 textarea[name=InfoWindow] {
     resize: none;
     float:left;
@@ -28,19 +44,19 @@ textarea[name=InfoWindow] {
 }
 
 #bigHeader { 
-	text-align: center;
 	color:#FFFFFF;
-	text-decoration:underline;
+	font-size:x-large;
+	padding-left:10px;
 }
 
 
 #signInHeader { 
 	font-size:small;
 	text-align: right;
+	padding-right:10px;
 }
 
-#map-canvas { 
-	width: 100%;
+#map-canvas {
 	height: 80%; 
 }
 
