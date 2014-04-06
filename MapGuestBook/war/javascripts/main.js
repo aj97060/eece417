@@ -163,38 +163,6 @@ function httpCallBackFunction_loadMarkers() {
 					"price" : parking[8],
 					"score" : parking[9]
 				}
-				
-				daysArr = jsonEncode.days.split("");
-				daysAvail = "";
-				checkBoxDay = "";
-				if (daysArr[0] == "1") {
-					daysAvail += "Sun, "
-					checkBoxDay += 'Sun  <input type="checkbox" id="sundayRes"> '
-				}
-				if (daysArr[1] == "1") {
-					daysAvail += "Mon, "
-					checkBoxDay += 'Mon  <input type="checkbox" id="mondayRes"> '
-				}
-				if (daysArr[2] == "1") {
-					daysAvail += "Tue, "
-					checkBoxDay += 'Tue  <input type="checkbox" id="tuesdayRes"> '
-				}
-				if (daysArr[3] == "1") {
-					daysAvail += "Wed, "
-					checkBoxDay += 'Wed  <input type="checkbox" id="wednesdayRes"> '
-				}
-				if (daysArr[4] == "1") {
-					daysAvail += "Thu, "
-					checkBoxDay += 'Thu  <input type="checkbox" id="thurdayRes"> '
-				}
-				if (daysArr[5] == "1") {
-					daysAvail += "Fri, "
-					checkBoxDay += 'Fri  <input type="checkbox" id="fridayRes"> '
-				}
-				if (daysArr[6] == "1") {
-					daysAvail += "Sat, "
-					checkBoxDay += 'Sat  <input type="checkbox" id="saturdayRes"> '
-				}
 
 				if (jsonEncode.start_time.toString().length == 3) {
 					hour_start = jsonEncode.start_time.toString().slice(0, 1);
@@ -219,43 +187,69 @@ function httpCallBackFunction_loadMarkers() {
 					min_end = min_end.toString() + "0";
 				}
 
+				daysAvail = "";
+				daysArr = jsonEncode.days.split("");
+				if (daysArr[0] == "1") {
+					daysAvail += "Sun, "
+				}
+				if (daysArr[1] == "1") {
+					daysAvail += "Mon, "
+				}
+				if (daysArr[2] == "1") {
+					daysAvail += "Tue, "
+				}
+				if (daysArr[3] == "1") {
+					daysAvail += "Wed, "
+				}
+				if (daysArr[4] == "1") {
+					daysAvail += "Thu, "
+				}
+				if (daysArr[5] == "1") {
+					daysAvail += "Fri, "
+				}
+				if (daysArr[6] == "1") {
+					daysAvail += "Sat, "
+				}
+
 				var myLatlng = new google.maps.LatLng(jsonEncode.latitude,
 						jsonEncode.longitude);
 
-				var contentString = "";
-				
-				
-				if ($("#signInHeader").attr("value") == "in") {
-					contentString += '<div id="InfoWindowTitle">'
-					+ jsonEncode.name + '</div>'
-					+ '<p id="InfoWindowDays"> Reserve for: </br>'
-					+ checkBoxDay + '</p>' + 
-					+ '<input type="text" id="timeSliderOutputRes" ></br>' 
-					+ '<div id="time-rangeRes"></div>'
-					+ '<p id="InfoWindowPrice"> Price: '
-					+ jsonEncode.price + '</p>'
-					+ '<p id="InfoWindowScore"> Score ' + jsonEncode.score
-					+ "/5" + '</p>' + '</br>'
-					+ '<input id="InfoWindowButton" type="button" value="Reserve" onclick="makeReservation('
-							+ jsonEncode.key + ')"/>';
+				var contentString = '<div id=\"InfoWindow\" value=\"' + jsonEncode.availability +'\">';
+
+				if ($(".signInHeader").attr("value") == "in") {
+					contentString += "<div id=\"InfoWindowTitle\">"
+							+ jsonEncode.name
+							+ "<\/div><\/br><table id=\"dateTableRes\"><tr><th id=\"rowDateRes\"><input  type=\"text\" style=\"position: relative; z-index: 10;\" id=\"datepicker\" value=\"Pick your day!\" days=\""
+							+ jsonEncode.days
+							+ "\"><\/th><\/tr><\/table><\/br><table  id=\"sliderTable\"><tr id=\"rowTimeSliderOut\"><td> <input type=\"text\" id=\"timeSliderOutputRes\" ><\/td><\/tr><tr id=\"rowTimeSlider\"><td><p id=\"time-rangeRes\" value=\""
+							+ jsonEncode.start_time
+							+ "-"
+							+ jsonEncode.end_time
+							+ "\"><\/p><\/td><\/tr><\/table><p id=\"InfoWindowPrice\">Only "
+							+ jsonEncode.price
+							+ "<\/p><p id=\"InfoWindowScore\">Score "
+							+ jsonEncode.score
+							+ "\/5<\/p><div id=\"InfoWindowButtonHolder\"><input id=\"InfoWindowButton\" type=\"button\" value=\"Reserve Now\" onclick=\"makeReservation("
+							+ jsonEncode.key
+							+ ")\"\/><\/div><p id=\"ServerResponseRes\"><\/p>";
+
 				} else {
 					contentString += '<div id="InfoWindowTitle">'
-					+ jsonEncode.name + '</div>'
-					+ '<p id="InfoWindowDays"> Available on: </br>'
-					+ daysAvail + '</p>' + '<p id="InfoWindowST"> From '
-					+ hour_start + ":" + min_start + '</p>'
-					+ '<p id="InfoWindowET"> To ' + hour_end + ":"
-					+ min_end + '</p>' + '<p id="InfoWindowPrice"> Price: '
-					+ jsonEncode.price + '</p>'
-					+ '<p id="InfoWindowScore"> Score ' + jsonEncode.score
-					+ "/5" + '</p>' + '</br>'
-					+ 'Login to reserve this parking.';
+							+ jsonEncode.name + '</div></br>'
+							+ ' Available on: <p id="InfoWindowDays">'
+							+ daysAvail + '</p>'
+							+ '<p id="InfoWindowST"> From ' + hour_start + ":"
+							+ min_start + ' to '
+							+ hour_end + ":" + min_end + '</p>'
+							+ '<p id="InfoWindowPrice"> Price: '
+							+ jsonEncode.price + '</p>'
+							+ '<p id="InfoWindowScore"> Score '
+							+ jsonEncode.score + "/5" + '</p>' + '</br>'
+							+ 'Login to reserve this parking.';
 				}
 
-				if (jsonEncode.availability == "false") {
-					// TODO gray overlay
-				}
-
+				contentString += "</div>";
+				
 				if (jsonEncode.availability == "true") {
 					var image = {
 						url : 'resources/parking_lot_maps.png'
@@ -276,6 +270,7 @@ function httpCallBackFunction_loadMarkers() {
 				jsonEncode.marker = marker;
 				markers.push(jsonEncode);
 				addInfowindow(marker, contentString, jsonEncode.key);
+
 			}
 		} else {
 			alert("No data.");
@@ -283,83 +278,255 @@ function httpCallBackFunction_loadMarkers() {
 	}
 }
 
-function addSliderRes(){
-	//Marker info Bubble
-	$( "#time-rangeRes" ).slider({
-			range: true,
-			min: 0,
-			max: 2359,
-			values: [ 0, 2359 ],
-			slide: function( event, ui ) {
-			 	if(ui.values[ 0 ].toString().length == 3){
-					hour_start = ui.values[ 0 ].toString().slice(0,1);
-				}else{
-					hour_start = ui.values[ 0 ].toString().slice(0,2);
-				}
-				if(ui.values[ 1 ].toString().length == 3){
-					hour_end = ui.values[ 1 ].toString().slice(0,1);
-				}else{
-					hour_end = ui.values[1 ].toString().slice(0,2);
-				}
-			    min_start = Math.floor(parseInt(ui.values[ 0 ].toString().slice(-2))*0.6);
-			    min_end = Math.floor(parseInt(ui.values[ 1 ].toString().slice(-2))*0.6);
-			    if (min_start.toString().length == 1 && min_start > 16) {
-				min_start = min_start.toString() + "0";
+function addJSRes() {
+	
+	//Disable if parking unavailable
+	if($("#InfoWindow").attr("value") == "false"){
+		$("#InfoWindow *").attr("disabled", "disabled").off('click');
+		$("#ServerResponseRes").html("This parking is currently unavailable");
+	}
+	
+	// Add date picker to infoWindow
+	$("#datepicker").datepicker({
+		showButtonPanel : true,
+		showOn : "button",
+		buttonImage : "resources/date-picker-icon.png", // Source:
+														// http://cdn.fleetly.com/assets/A/85/date-picker-icon.png
+		buttonImageOnly : true,
+		beforeShowDay : function(date) {
+			var weekDay = date.getDay();
+			var now = new Date();
+			var daysArr = $("#datepicker").attr("days").split("");
+			if (daysArr[weekDay] == "1" && date > now) {
+				// Day selectable
+				return [ true, "" ];
+			} else {
+				// Day not selectable
+				return [ false, "" ]
 			}
-			if (min_start.toString().length == 1 && min_start < 17) {
-				min_start = "0" + min_start.toString() ;
-			}
-
-			if (min_end.toString().length == 1 && min_start > 16) {
-				min_end = min_end.toString() + "0";
-			}
-			if (min_end.toString().length == 1 && min_start < 17) {
-				min_end = "0" +  min_end.toString();
-			}
-			
-			$( "#timeSliderOutputRes" ).val( "From " + hour_start+":"+min_start + " - To " + hour_end+":"+min_end );
-			 }
-			 
+		}
 	});
-}
 
+	// Add slider to infoWindow
+	$("#time-rangeRes")
+			.slider(
+					{
+						range : true,
+						min : parseInt($("#time-rangeRes").attr("value").split(
+								"-")[0]),
+						max : parseInt($("#time-rangeRes").attr("value").split(
+								"-")[1]),
+						values : [
+								parseInt($("#time-rangeRes").attr("value")
+										.split("-")[0]),
+								parseInt($("#time-rangeRes").attr("value")
+										.split("-")[1]) ],
+						create : function(event, ui) {
+							defaultVal = [
+									parseInt($("#time-rangeRes").attr("value")
+											.split("-")[0]),
+									parseInt($("#time-rangeRes").attr("value")
+											.split("-")[1]) ]
+							if (defaultVal[0].toString().length == 3) {
+								hour_start = defaultVal[0].toString().slice(0,
+										1);
+							} else {
+								hour_start = defaultVal[0].toString().slice(0,
+										2);
+							}
+							if (defaultVal[0].toString().length == 2) {
+								hour_start = 0;
+							}
+
+							if (defaultVal[1].toString().length == 3) {
+								hour_end = defaultVal[1].toString().slice(0, 1);
+							} else {
+								hour_end = defaultVal[1].toString().slice(0, 2);
+							}
+							if (defaultVal[1].toString().length == 2) {
+								hour_end = 0;
+							}
+							min_start = Math.floor(parseInt(defaultVal[0]
+									.toString().slice(-2)) * 0.6);
+							min_end = Math.floor(parseInt(defaultVal[1]
+									.toString().slice(-2)) * 0.6);
+							if (min_start.toString().length == 1
+									&& min_start > 16) {
+								min_start = min_start.toString() + "0";
+							}
+							if (min_start.toString().length == 1
+									&& min_start < 17) {
+								min_start = "0" + min_start.toString();
+							}
+
+							if (min_end.toString().length == 1 && min_end > 16) {
+								min_end = min_end.toString() + "0";
+							}
+							if (min_end.toString().length == 1 && min_end < 17) {
+								min_end = "0" + min_end.toString();
+							}
+							$("#timeSliderOutputRes").val(
+									"From " + hour_start + ":" + min_start
+											+ " - To " + hour_end + ":"
+											+ min_end);
+						},
+						slide : function(event, ui) {
+							if (ui.values[0].toString().length == 3) {
+								hour_start = ui.values[0].toString()
+										.slice(0, 1);
+							} else {
+								hour_start = ui.values[0].toString()
+										.slice(0, 2);
+							}
+							if (ui.values[0].toString().length == 2) {
+								hour_start = 0;
+							}
+
+							if (ui.values[1].toString().length == 3) {
+								hour_end = ui.values[1].toString().slice(0, 1);
+							} else {
+								hour_end = ui.values[1].toString().slice(0, 2);
+							}
+							if (ui.values[1].toString().length == 2) {
+								hour_end = 0;
+							}
+							min_start = Math.floor(parseInt(ui.values[0]
+									.toString().slice(-2)) * 0.6);
+							min_end = Math.floor(parseInt(ui.values[1]
+									.toString().slice(-2)) * 0.6);
+							if (min_start.toString().length == 1
+									&& min_start > 16) {
+								min_start = min_start.toString() + "0";
+							}
+							if (min_start.toString().length == 1
+									&& min_start < 17) {
+								min_start = "0" + min_start.toString();
+							}
+
+							if (min_end.toString().length == 1 && min_end > 16) {
+								min_end = min_end.toString() + "0";
+							}
+							if (min_end.toString().length == 1 && min_end < 17) {
+								min_end = "0" + min_end.toString();
+							}
+							$("#timeSliderOutputRes").val(
+									"From " + hour_start + ":" + min_start
+											+ " - To " + hour_end + ":"
+											+ min_end);
+						}
+
+					});
+}
 
 function addInfowindow(marker, content, mrkID) {
 	infowindow = new google.maps.InfoWindow({
 		content : content
 	});
+
+	google.maps.event.addListener(infowindow, 'domready', function() {
+		if ($(".signInHeader").attr("value") == "in") {
+			addJSRes();
+		}
+	});
+
 	google.maps.event.addListener(marker, 'click', function() {
 		selectedMarkerID = mrkID;
 		infowindow.setContent("" + content);
 		infowindow.setPosition(marker.getPosition());
 		infowindow.open(marker.get('map'), marker);
-		getAjaxRequest();
 	});
-	addSliderRes();
+
 }
 
-function getAjaxRequest() {
-	// alert("getAjaxRequest");
-	if (!infowindow) {
-		infowindow.close();
-	}
+function makeReservation(mrkId) {
 	try {
 		xmlHttpReq = new XMLHttpRequest();
-		xmlHttpReq.onreadystatechange = httpCallBackFunction_getAjaxRequest;
-		var url = "/queryprocessor/?markerID=" + selectedMarkerID
-				+ "&guestbookName=" + guestbookNameString;
+		xmlHttpReq.onreadystatechange = httpCallBackFunction_ajaxReservation;
+
+		date = $("#datepicker").val();
+		if (date.length == 10) {
+			start_time = parseInt($("#time-rangeRes").slider("values", 0))
+			end_time = parseInt($("#time-rangeRes").slider("values", 1))
+
+			var url = "queryprocessor/?Reservation=" + mrkId + "&start_time="
+					+ start_time + "&end_time=" + end_time + "&date=" + date;
+
+			xmlHttpReq.open('GET', url, true);
+			xmlHttpReq.send(null);
+		}else{
+			$("#ServerResponseRes").attr("class", "ServerResponseResFail");
+			$("#ServerResponseRes").html("Invalid date")
+		}
+	} catch (e) {
+		alert("Error: " + e);
+	}
+}
+
+function httpCallBackFunction_ajaxReservation() {
+
+	if (xmlHttpReq.readyState == 1) {
+		// updateStatusMessage("<blink>Opening HTTP...</blink>");
+	} else if (xmlHttpReq.readyState == 2) {
+		// updateStatusMessage("<blink>Sending query...</blink>");
+	} else if (xmlHttpReq.readyState == 3) {
+		// updateStatusMessage("<blink>Receiving...</blink>");
+	} else if (xmlHttpReq.readyState == 4) {
+		res = xmlHttpReq.responseText;
+		if (res) {
+			if (res == 0) {
+				$("#ServerResponseRes").attr("class", "ServerResponseResSucc");
+				$("#ServerResponseRes").html("Reservation successful!");
+			}
+			if (res == 1) {
+				$("#ServerResponseRes").attr("class", "ServerResponseResFail");
+				$("#ServerResponseRes").html("Reservation already taken")
+			}
+		} else {
+			alert("No data.");
+		}
+	}
+}
+
+function showMyReservation() {
+	getMyReservation();
+	$("#myReservationFloat").dialog('open');
+}
+
+function cancelMyReservation() {
+	var canceledRes = [];
+	var countRes = 0;
+	$("#myReservationFloat > table > tbody > tr > td > input").each(function() {
+		countRes = countRes+1;
+		if ($(this).prop('checked')) {
+			canceledRes.push($(this).attr("id"));
+			cancelRes($(this).attr("id"));
+		}
+	});
+	for (id in canceledRes) {
+		$("#tr" + canceledRes[id]).remove();
+		if(countRes-1==id){
+			$("#myReservationFloat").html('<div id=\"noReservation\">You have no reservations</div>');
+		}
+	}
+
+}
+
+function cancelRes(resId) {
+	try {
+		xmlHttpReq = new XMLHttpRequest();
+		xmlHttpReq.onreadystatechange = httpCallBackFunction_ajaxCancelRes;
+
+		var url = "queryprocessor/?Cancel=" + resId;
 
 		xmlHttpReq.open('GET', url, true);
 		xmlHttpReq.send(null);
-
-		// alert();
 
 	} catch (e) {
 		alert("Error: " + e);
 	}
 }
 
-function httpCallBackFunction_getAjaxRequest() {
+function httpCallBackFunction_ajaxCancelRes() {
 	// alert("httpCallBackFunction_getAjaxRequest");
 
 	if (xmlHttpReq.readyState == 1) {
@@ -369,25 +536,60 @@ function httpCallBackFunction_getAjaxRequest() {
 	} else if (xmlHttpReq.readyState == 3) {
 		// updateStatusMessage("<blink>Receiving...</blink>");
 	} else if (xmlHttpReq.readyState == 4) {
-		var xmlDoc = null;
-
-		if (xmlHttpReq.responseXML) {
-			xmlDoc = xmlHttpReq.responseXML;
-		} else if (xmlHttpReq.responseText) {
-			var parser = new DOMParser();
-			xmlDoc = parser
-					.parseFromString(xmlHttpReq.responseText, "text/xml");
-		}
-
-		if (xmlDoc) {
-			// alert(xmlHttpReq.responseText);
-			//document.getElementById("msglist_" + selectedMarkerID).innerHTML = xmlHttpReq.responseText;
+		res = xmlHttpReq.responseText;
+		if (res) {
+			if (res == -1) {
+				$("#myReservationServerAns").attr("class",
+						"ServerResponseResFail");
+				$("#myReservationServerAns").html(
+						"Unable to cancel reservation");
+			}
 		} else {
 			alert("No data.");
 		}
 	}
 }
 
+function getMyReservation() {
+	if (!infowindow) {
+		infowindow.close();
+	}
+	// Clear previous data
+	$("#myReservationFloat").html("");
+	try {
+		xmlHttpReq = new XMLHttpRequest();
+		xmlHttpReq.onreadystatechange = httpCallBackFunction_ajaxMyReservation;
+		var url = "/queryprocessor/?getMyReservations=all";
+
+		xmlHttpReq.open('GET', url, true);
+		xmlHttpReq.send(null);
+
+	} catch (e) {
+		alert("Error: " + e);
+	}
+}
+
+function httpCallBackFunction_ajaxMyReservation() {
+	// alert("httpCallBackFunction_getAjaxRequest");
+
+	if (xmlHttpReq.readyState == 1) {
+		// updateStatusMessage("<blink>Opening HTTP...</blink>");
+	} else if (xmlHttpReq.readyState == 2) {
+		// updateStatusMessage("<blink>Sending query...</blink>");
+	} else if (xmlHttpReq.readyState == 3) {
+		// updateStatusMessage("<blink>Receiving...</blink>");
+	} else if (xmlHttpReq.readyState == 4) {
+		res = xmlHttpReq.responseText;
+		if (res) {
+			$("#myReservationFloat").html(res);
+		} else {
+			alert("No data.");
+		}
+	}
+}
+
+// Prolly nothing relevant after this point
+//
 function postAjaxRequest(postMsg, markerID, guestbookName, rspMsgList) {
 	// alert("postAjaxRequest");
 	try {

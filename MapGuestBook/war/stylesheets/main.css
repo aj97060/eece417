@@ -1,18 +1,201 @@
-html { 
-	height: 100% 
+html {
+	height: 100%
 }
 
 body {
-    font-family: Verdana, Helvetica, sans-serif;
-	font-weight:bold;
-    background-color: #B3D1FF; 
-    height: 100%; 
-    margin: 0px; 
-    padding: 0px; 
+	font-family: Verdana, Helvetica, sans-serif;
+	font-weight: bold;
+	background-color: #B3D1FF;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+#myReservationFloat {
+	display:none;
+}
+
+#ServerResponseRes {
+	font-size: medium;
+	font-weight: bold;
+}
+
+.ServerResponseResFail {
+	color: red;
+}
+
+.ServerResponseResSucc {
+	color: green;
 }
 
 #SidePanelSearch {
-	 float:left;
+	color: #FFFFFF;
+	padding-left: 10px;
+	float: left;
+	font-weight: normal;
+	text-align:center;
+}
+
+#timeSliderOutput{
+	outline: 0;
+	background-color:transparent;
+	border: 0px solid;
+	color: inherit;
+	font-weight: bold;
+	font-family: Verdana, Helvetica, sans-serif;
+	width:100%;
+	padding: 0px;
+	text-align:center;
+}
+
+#priceSliderOutput{
+	outline: 0;
+	background-color:transparent;
+	border: 0px solid;
+	color: inherit;
+	font-weight: bold;
+	font-family: Verdana, Helvetica, sans-serif;
+	width:100%;
+	padding: 0px;
+	text-align:center;
+}
+ 
+#scoreSliderOutput{
+	outline: 0;
+	background-color:transparent;
+	border: 0px solid;
+	color: inherit;
+	font-weight: bold;
+	font-family: Verdana, Helvetica, sans-serif;
+	width:100%;
+	padding: 0px;
+	text-align:center;
+}
+
+#availTable{
+	margin-left:auto; 
+    margin-right:auto;
+    width:60%;
+}
+
+#dayTable{
+	margin-left:auto; 
+    margin-right:auto;
+    width:60%;
+}
+
+#sliderTable{
+	border-collapse: collapse;
+	margin-left:auto; 
+    margin-right:auto;
+    width:90%;
+    border-spacing:10px;
+}
+
+#dateTableRes{
+	margin-left:auto; 
+    margin-right:auto;
+    width:90%;
+}
+
+#datepicker{
+	outline: 0;
+	background-color:transparent;
+	border: 0px solid;
+	color: inherit;
+	font-weight: bold;
+	font-family: Verdana, Helvetica, sans-serif;
+	width:45%;
+	text-align:center;
+}
+
+#timeSliderOutputRes{
+	outline: 0;
+	background-color:transparent;
+	border: 0px solid;
+	color: inherit;
+	font-weight: bold;
+	font-family: Verdana, Helvetica, sans-serif;
+	width:100%;
+	padding: 0px;
+	text-align:center;
+}
+
+#InfoWindowScore{
+	color: inherit;
+	font-weight: bold;
+	font-size: large;
+	font-family: Verdana, Helvetica, sans-serif;
+}
+
+#InfoWindowPrice{
+	color: inherit;
+	font-weight: bold;
+	font-family: Verdana, Helvetica, sans-serif;
+}
+
+#InfoWindowDays{
+	color: inherit;
+	font-weight: bold;
+	font-family: Verdana, Helvetica, sans-serif;
+}
+
+#InfoWindowST{
+	color: inherit;
+	font-weight: bold;
+	font-family: Verdana, Helvetica, sans-serif;
+}
+
+#InfoWindowButtonHolder{
+	text-align: center;
+}
+
+#InfoWindow{
+	width: 310px;
+	height: 300px;
+	text-align:center;
+}
+
+#InfoWindowTitle {
+	font-size: medium;
+	font-weight: bold;
+	color: blue;
+	text-align:left;
+}
+
+#InfoWindowButton {
+	float: right;
+}
+
+
+#time-range{
+	margin-top: 5px;
+}
+
+#time-rangeRes{
+	margin-top: 5px;
+}
+
+#price-range{
+	margin-top: 5px;
+}
+
+#score-range{
+	margin-top: 5px;
+}
+	
+#rowAvailUnavail{
+	font-size: x-small;
+}
+
+#rowDayOfWeek{
+	font-size: small;
+	font-weight: normal;
+}
+
+.dayOfweekCheckbox{
+	width:20px; 
+	height:20px;
 }
 
 #MyReservationPane {
@@ -28,63 +211,55 @@ body {
 }
 
 textarea[name=InfoWindow] {
-    resize: none;
-    float:left;
-}
-
-#InfoWindowTitle {
-    font-size:medium;
-    font-weight:bold;
-    color:blue;
+	resize: none;
+	float: left;
 }
 
 
-#InfoWindowButton {
-    float: right;
+#bigHeader {
+	color: #FFFFFF;
+	font-size: x-large;
+	padding-left: 10px;
+	text-shadow: 5px 5px 5px #F8B951;
 }
 
-#bigHeader { 
-	color:#FFFFFF;
-	font-size:x-large;
-	padding-left:10px;
-}
-
-
-#signInHeader { 
-	font-size:small;
+.signInHeader {
+	color: #FFFFFF;
+	font-size: small;
 	text-align: right;
-	padding-right:10px;
+	padding-right: 10px;
 }
 
 #map-canvas {
-	height: 80%; 
+	height: 80%;
 }
 
-#guestbook{ 
-	font-size:x-small;
+#guestbook {
+	font-size: x-small;
 }
 
-#usagenote { 
-	font-size:small;
+#usagenote {
+	font-size: small;
 	text-align: center;
+	color: #FFFFFF;
 }
 
-#source { 
-	font-size:x-small;
+#source {
+	font-size: x-small;
 }
-
 
 .msglist {
-	width:260px;
-	height:160px;	
-	overflow-y:auto;
-	background-color: #E6E6E6;	/* @PartB Change background color */	
+	width: 260px;
+	height: 160px;
+	overflow-y: auto;
+	background-color: #E6E6E6; /* @PartB Change background color */
 }
 
 #oldMsgList {
-	display:none;
+	display: none;
 }
 
 .userName {
 	font-weight: bold;
 }
+

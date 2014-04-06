@@ -60,31 +60,89 @@
 			$( "#time-range" ).slider({
       			range: true,
       			min: 0,
-     			max: 2359,
-      			values: [ 0, 2359 ],
+     			max: 2399,
+      			values: [ 0, 2399 ],
+      			create: function( event, ui ) {
+      				defaultVal = [0, 2399]
+      				
+     			 	if(defaultVal[ 0 ].toString().length == 3){
+      					hour_start = defaultVal[ 0 ].toString().slice(0,1);
+      				}else{
+      					hour_start = defaultVal[ 0 ].toString().slice(0,2);
+      				}
+      				if(defaultVal[ 0 ].toString().length == 2){
+      					hour_start = 0;
+      				}//quick fix
+      				
+      				if(defaultVal[ 1 ].toString().length == 3){
+      					hour_end = defaultVal[ 1 ].toString().slice(0,1);
+      				}else{
+      					hour_end = defaultVal[1 ].toString().slice(0,2);
+      				}
+      				if(defaultVal[ 0 ].toString().length == 2){
+      					hour_end = 0;
+      				}//quick fix
+      			    min_start = Math.floor(parseInt(defaultVal[ 0 ].toString().slice(-2))*0.6);
+      			    min_end = Math.floor(parseInt(defaultVal[ 1 ].toString().slice(-2))*0.6);
+      			    if (min_start.toString().length == 1
+									&& min_start > 16) {
+								min_start = min_start.toString() + "0";
+							}
+							if (min_start.toString().length == 1
+									&& min_start < 17) {
+								min_start = "0" + min_start.toString();
+							}
+
+							if (min_end.toString().length == 1 && min_end > 16) {
+								min_end = min_end.toString() + "0";
+							}
+							if (min_end.toString().length == 1 && min_end < 17) {
+								min_end = "0" + min_end.toString();
+							}
+					
+        			$( "#timeSliderOutput" ).val( "From " + hour_start+":"+min_start + " - To " + hour_end+":"+min_end );
+     			 },
       			change: function( event, ui ) {
       				refreshMap();
      			 },
      			 slide: function( event, ui ) {
+     			 	
      			 	if(ui.values[ 0 ].toString().length == 3){
       					hour_start = ui.values[ 0 ].toString().slice(0,1);
       				}else{
       					hour_start = ui.values[ 0 ].toString().slice(0,2);
       				}
+      				if(ui.values[ 0 ].toString().length == 2){
+     			 	 	hour_start = 0;
+     			 	}//quick fix
+      				
       				if(ui.values[ 1 ].toString().length == 3){
       					hour_end = ui.values[ 1 ].toString().slice(0,1);
       				}else{
-      					hour_end = ui.values[1 ].toString().slice(0,2);
+      					hour_end = ui.values[ 1 ].toString().slice(0,2);
       				}
+      				if(ui.values[ 1 ].toString().length == 2){
+     			 	 	hour_end = 0;
+     			 	}//quick fix
       			    min_start = Math.floor(parseInt(ui.values[ 0 ].toString().slice(-2))*0.6);
       			    min_end = Math.floor(parseInt(ui.values[ 1 ].toString().slice(-2))*0.6);
-      			    if (min_start.toString().length == 1) {
-						min_start = min_start.toString() + "0";
-					}
+      			    
+					if (min_start.toString().length == 1
+									&& min_start > 16) {
+								min_start = min_start.toString() + "0";
+							}
+							if (min_start.toString().length == 1
+									&& min_start < 17) {
+								min_start = "0" + min_start.toString();
+							}
 
-					if (min_end.toString().length == 1) {
-						min_end = min_end.toString() + "0";
-					}
+							if (min_end.toString().length == 1 && min_end > 16) {
+								min_end = min_end.toString() + "0";
+							}
+							if (min_end.toString().length == 1 && min_end < 17) {
+								min_end = "0" + min_end.toString();
+							}
+					
         			$( "#timeSliderOutput" ).val( "From " + hour_start+":"+min_start + " - To " + hour_end+":"+min_end );
      			 }
      			 
@@ -95,12 +153,15 @@
       			min: 0,
      			max: 15,
       			values: [ 0, 15 ],
+      			create:  function( event, ui ) {
+        			$( "#priceSliderOutput" ).val( "Price between $" + 0 + " and $" + 15 );
+     			 },
       			slide: function( event, ui ) {
-        			$( "#priceSliderOutput" ).val( "Between $" + ui.values[ 0 ] + " and $" + ui.values[ 1 ] );
+        			$( "#priceSliderOutput" ).val( "Price between $" + ui.values[ 0 ] + " and $" + ui.values[ 1 ] );
      			 	refreshMap();
      			 },
       			change: function( event, ui ) {
-        			$( "#priceSliderOutput" ).val( "Between $" + ui.values[ 0 ] + " and $" + ui.values[ 1 ] );
+        			$( "#priceSliderOutput" ).val( "Price between $" + ui.values[ 0 ] + " and $" + ui.values[ 1 ] );
      			 	refreshMap();
      			 }
     		});
@@ -111,16 +172,37 @@
      			max: 5,
      			step: 1,
      			values: [ 0, 5 ],
+     			create: function( event, ui ) {
+        			$( "#scoreSliderOutput" ).val( "Score between " +  0 + " and " + 5);
+     			 },
      			slide: function( event, ui ) {
-        			$( "#scoreSliderOutput" ).val( "Between " + ui.values[ 0 ] + " and " + ui.values[ 1 ] );
+        			$( "#scoreSliderOutput" ).val( "Score between " + ui.values[ 0 ] + " and " + ui.values[ 1 ] );
      			 	refreshMap();
      			 },
      			change: function( event, ui ) {
-        			$( "#scoreSliderOutput" ).val( "Between " + ui.values[ 0 ] + " and " + ui.values[ 1 ] );
+        			$( "#scoreSliderOutput" ).val( "Score between " + ui.values[ 0 ] + " and " + ui.values[ 1 ] );
      			 	refreshMap();
      			 }
     		});
     		
+    		//
+    		// Taken from:
+    		// http://stackoverflow.com/questions/3945216/pop-up-form-on-button-click
+    		//
+    		$("#myReservationFloat").dialog({
+	   			 autoOpen: false,
+	   			 //show: 'slide',
+	   			 resizable: false,
+	   			 position: 'center',
+	    		 stack: true,
+	    		 height: 'auto',
+	    		 width: 'auto',
+	    		 modal: true,
+	    		 title: "My reservations"
+			});
+			//
+			// End of borrowed code
+			//
     		
     		refreshMap();
     		
@@ -142,92 +224,81 @@
     if (user != null) {
       pageContext.setAttribute("user", user);
 %>
-<p id="signInHeader" value="in">${fn:escapeXml(user.nickname)}! (
-<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
+<p id="signIn" class="signInHeader" value="in"><a id="myReservationLink" href="javascript:void(0);" onclick="showMyReservation();" >My Reservations</a>&nbsp;${fn:escapeXml(user.nickname)} (
+<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>)</p>
 <%
     } else {
 %>
-<p id="signInHeader" value="out">
+<p class="signInHeader" value="out">
 <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
 </p>
 <%
     }
 %>
-<script type="text/javascript">guestbookNameString = "${fn:escapeXml(guestbookName)}";</script>
-<!--<script type="text/javascript">alert(guestbookNameString);</script>-->
-
-<!-- Original -->
-<div id=oldMsgList>
-<%
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Key guestbookKey = KeyFactory.createKey("Guestbook", guestbookName);
-    
-    // Run an ancestor query to ensure we see the most up-to-date
-    // view of the Greetings belonging to the selected Guestbook.
-    
-    Query query = new Query("Greeting", guestbookKey).addSort("date", Query.SortDirection.DESCENDING);
-    List<Entity> greetings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
-    
-    if (greetings.isEmpty()) {
-        %>
-        <p>Guestbook '${fn:escapeXml(guestbookName)}' has no comment on this parking.</p>
-        <%
-    } else {
-        %>
-        <p>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p>
-        <%
-        for (Entity greeting : greetings) {
-            pageContext.setAttribute("greeting_content",
-                                     greeting.getProperty("content"));
-            if (greeting.getProperty("user") == null) {
-                %>
-                <p>An anonymous person wrote:</p>
-                <%
-            } else {
-                pageContext.setAttribute("greeting_user",
-                                         greeting.getProperty("user"));
-                %>
-                <p><b>${fn:escapeXml(greeting_user.nickname)}</b> wrote:</p>
-                <%
-            }
-            %>
-            <blockquote>${fn:escapeXml(greeting_content)}</blockquote>
-            <%
-        }
-    }
-%>
-
-    <form action="/sign" method="post">
-      <div><textarea name="content" rows="3" cols="60" resize="none"></textarea>
-      <input type="submit" value="Post" /></div>
-      <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
-    </form>
-    
-</div> 
-<!-- Original -->
-	<div id="SidePanelSearch">Filter  </br>  </br>
-		Current availability: </br>
-		Show available <input class="filterCheckbox" type="checkbox"  checked="true"  id="avail"> </br>
-		Show unavailable <input type="checkbox" checked="true" id="unavail"></br>
-		Days: </br>
-		Sun  <input type="checkbox" checked="true" id="sunday"> 
-		Mon  <input type="checkbox" checked="true" id="monday"> 
-		Tue  <input type="checkbox" checked="true" id="tuesday"> 
-		Wed  <input type="checkbox" checked="true" id="wednesday"> 
-		Thu  <input type="checkbox" checked="true" id="thursday"> 
-		Fri  <input type="checkbox" checked="true" id="friday"> 
-		Sat  <input type="checkbox" checked="true" id="saturday"></br></br>
-		Time <input type="text" id="timeSliderOutput" ></br>
-		<div id="time-range"></div></br>
-		Price <input type="text" id="priceSliderOutput" >
-		</br><div id="price-range"></div></br>
-		Score <input type="text" id="scoreSliderOutput" >
-		</br><div id="score-range"></div></br>
+	<div id="SidePanelSearch"></br>  </br>
+		<table id="availTable">
+		   	<tr>
+		    	<th><img src="/resources/parking_lot_maps.png" alt="Available Parking"><input class="filterCheckbox" type="checkbox"  checked="true"  id="avail"></th>
+			 	<th><img src="/resources/parking_lot_maps_disable.png" alt="Unavailable Parking"><input type="checkbox" checked="true" id="unavail"></th>
+			</tr>
+			<tr>
+				<th id="rowAvailUnavail">Available</th>
+				<th id="rowAvailUnavail">Unavailable</th>
+			</tr>
+		</table>
+		</br>
+		<table id="dayTable">
+		   	<tr id="rowDayOfWeek">
+		    	<th>Sun</th>
+			 	<th>Mon</th>
+			 	<th>Tue</th>
+			 	<th>Wed</th>
+			 	<th>Thu</th>
+			 	<th>Fri</th>
+			 	<th>Sat</th>
+			</tr>
+			<tr>
+				<th><input type="checkbox" checked="true" class="dayOfweekCheckbox" id="sunday"></th>
+				<th><input type="checkbox" checked="true" class="dayOfweekCheckbox" id="monday"></th>
+				<th><input type="checkbox" checked="true" class="dayOfweekCheckbox" id="tuesday"></th>
+				<th><input type="checkbox" checked="true" class="dayOfweekCheckbox" id="wednesday"></th>
+				<th><input type="checkbox" checked="true" class="dayOfweekCheckbox" id="thursday"></th>
+				<th><input type="checkbox" checked="true" class="dayOfweekCheckbox" id="friday"></th>
+				<th><input type="checkbox" checked="true" class="dayOfweekCheckbox" id="saturday"></th>
+			</tr>
+		</table>
+		</br>
+		<table  id="sliderTable">
+			<tr id="rowTimeSliderOut">
+		    	<td><input type="text" id="timeSliderOutput" ></td>
+			</tr>
+			<tr id="rowTimeSlider">
+		    	<td><p id="time-range"></p></td>
+			</tr>
+		</table>
+		</br>
+		<table  id="sliderTable">
+			<tr id="rowPriceSliderOut">
+		    	<th><input type="text" id="priceSliderOutput" ></th>
+			</tr>
+			<tr id="rowPriceSlider">
+		    	<th><p id="price-range"></p></th>
+			</tr>
+		</table>
+		</br>
+		<table  id="sliderTable">
+			<tr id="rowScoreSliderOut">
+		    	<th><input type="text" id="scoreSliderOutput" ></th>
+			</tr>
+			<tr id="rowScoreSlider">
+		    	<th><p id="score-range"></p></th>
+			</tr>
+		</table>
 	</div>  
     <div id="map-canvas"></div>
-    
+    <div id="myReservationFloat"></div>
 	<br/>
-	<div id="usagenote" >Please click on a marker to view and/or post greetings.</div>
+	<div id="usagenote" >Please click on a marker to view parking info</div>
 	<br/>
 	<div id="source" >UBC parking location available <a href="http://www.parking.ubc.ca/find-parking">here</a>  </div>	
   </body>

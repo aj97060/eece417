@@ -21,13 +21,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
         <url-pattern>/sign/*</url-pattern>
     </servlet-mapping>
 	<servlet>
-        <servlet-name>queryprocessor</servlet-name>
-        <servlet-class>ca.appengine.project.test.QueryProcessorServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>queryprocessor</servlet-name>
-        <url-pattern>/queryprocessor/*</url-pattern>
-    </servlet-mapping>
+		<servlet-name>QueryProcessorServlet</servlet-name>
+		<servlet-class>ca.appengine.project.test.QueryProcessorServlet</servlet-class></servlet><servlet-mapping>
+		<servlet-name>QueryProcessorServlet</servlet-name>
+		<url-pattern>/queryprocessor/*</url-pattern></servlet-mapping>
 	<servlet>
 		<servlet-name>PopulateParkings</servlet-name>
 		<servlet-class>ca.appengine.project.test.PopulateParking</servlet-class></servlet><servlet-mapping>
