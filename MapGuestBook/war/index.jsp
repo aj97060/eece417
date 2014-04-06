@@ -58,9 +58,9 @@
       			range: true,
       			min: 0,
      			max: 2399,
-      			values: [ 0, 2399 ],
+      			values: [ 1200, 1200 ],
       			create: function( event, ui ) {
-      				defaultVal = [0, 2399]
+      				defaultVal = [1200, 1200]
       				
      			 	if(defaultVal[ 0 ].toString().length == 3){
       					hour_start = defaultVal[ 0 ].toString().slice(0,1);
@@ -141,6 +141,7 @@
 							}
 					
         			$( "#timeSliderOutput" ).val( "From " + hour_start+":"+min_start + " - To " + hour_end+":"+min_end );
+     			 	refreshMap();
      			 }
      			 
     		});
@@ -211,11 +212,6 @@
   </br>
   <div id="bigHeader">OurParkingSpot</div>
 <%
-    String guestbookName = request.getParameter("guestbookName");
-    if (guestbookName == null) {
-        guestbookName = "default";
-    }
-    pageContext.setAttribute("guestbookName", guestbookName);
     UserService userService = UserServiceFactory.getUserService();
     User user = userService.getCurrentUser();
     if (user != null) {

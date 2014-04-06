@@ -46,13 +46,15 @@ public class QueryProcessorServlet extends HttpServlet {
 		String rentStartTime = req.getParameter("start_time");
 		String rentEndTime = req.getParameter("end_time");
 		String date = req.getParameter("date");
-
+		
+		// Make a reservation
 		if (parkingId != null && rentStartTime != null && rentEndTime != null
 				&& date != null) {
 			this.datastore = DatastoreServiceFactory.getDatastoreService();
 
 			Entity reservation = new Entity("Reservation");
-
+			
+			// Check if reservation conflicts with another
 			if (checkReservation(user.getUserId(), parkingId, rentStartTime,
 					rentEndTime, date)) {
 
@@ -73,8 +75,9 @@ public class QueryProcessorServlet extends HttpServlet {
 
 				responseHTMLString = "0"; // All good bro
 			} else {
-				responseHTMLString = "1"; // Reservation conflict
+				responseHTMLString = "1"; // Reservation conflicts
 			}
+		// Get reservations for current user
 		} else if (getRes != null) {
 			int count = 0;
 			this.datastore = DatastoreServiceFactory.getDatastoreService();
@@ -188,6 +191,7 @@ public class QueryProcessorServlet extends HttpServlet {
 				responseHTMLString += "</table>";
 				responseHTMLString += "<div id=\"cancelResButtonHolder\" ><input id=\"cancelResButton\" type=\"button\" value=\"Cancel selected reservations\" onclick=\"cancelMyReservation()\"/></div>";
 			}
+		// Cancel Reservation with id==cancelRes
 		} else if (cancelRes != null) {
 			try {
 				this.datastore = DatastoreServiceFactory.getDatastoreService();
@@ -206,11 +210,11 @@ public class QueryProcessorServlet extends HttpServlet {
 				}
 				responseHTMLString = cancelRes;
 			} catch (Exception e) {
-				responseHTMLString = "-1";
+				responseHTMLString = "-1"; // Something went wrong
 			}
 
 		} else {
-			responseHTMLString = "-1"; // Nothing to do
+			responseHTMLString = "-1"; // Bad argument
 		}
 		System.out.println(responseHTMLString);
 		resp.setContentType("text/plain");
@@ -218,6 +222,7 @@ public class QueryProcessorServlet extends HttpServlet {
 
 	}
 
+	// Check if reservation conflicts with another
 	private boolean checkReservation(String userId, String parkingId,
 			String rentStartTime, String rentEndTime, String date) {
 		Query query = new Query("Reservation");
@@ -246,7 +251,7 @@ public class QueryProcessorServlet extends HttpServlet {
 						if ((cs <= us && ce >= us) || (cs >= us && ce <= ue)
 								|| (cs <= ue && ce >= ue)) {
 							System.out.println("Reservation already taken");
-							return false;
+							return false; // Reservation is in conflict
 						}
 					}
 				}

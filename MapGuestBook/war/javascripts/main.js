@@ -30,9 +30,7 @@ function refreshMap() {
 
 	for (i = 0; i < markers.length; i++) {
 		parking = markers[i];
-		// alert(parking.days)
 		daysArr = parking.days.split("");
-		// alert(daysArr)
 		selectedDays = [ sunday, monday, tuesday, wednesday, thursday, friday,
 				saturday ];
 
@@ -52,7 +50,7 @@ function refreshMap() {
 		// Check time
 		parkingStartTime = parseInt(parking.start_time);
 		parkingEndTime = parseInt(parking.end_time);
-		if (parkingStartTime >= start_time && parkingEndTime <= end_time) {
+		if (parkingStartTime <= start_time && parkingEndTime >= end_time) {
 			isInTime = true;
 		}
 
@@ -97,8 +95,8 @@ function refreshMap() {
 
 }
 
+// Load the parking and put them on the map
 function loadMarkers() {
-	// alert("loadMarkers");
 	try {
 		xmlHttpReq = new XMLHttpRequest();
 		xmlHttpReq.onreadystatechange = httpCallBackFunction_loadMarkers;
@@ -107,34 +105,23 @@ function loadMarkers() {
 		xmlHttpReq.open('GET', url, true);
 		xmlHttpReq.send(null);
 
-		// alert();
-
 	} catch (e) {
 		alert("Error: " + e);
 	}
 }
 
+// Ajax callback for loadMarkers()
 function httpCallBackFunction_loadMarkers() {
-	// alert("httpCallBackFunction_loadMarkers");
-
 	if (xmlHttpReq.readyState == 1) {
-		// updateStatusMessage("<blink>Opening HTTP...</blink>");
 	} else if (xmlHttpReq.readyState == 2) {
-		// updateStatusMessage("<blink>Sending query...</blink>");
 	} else if (xmlHttpReq.readyState == 3) {
-		// updateStatusMessage("<blink>Receiving...</blink>");
 	} else if (xmlHttpReq.readyState == 4) {
 
 		var plainText = xmlHttpReq.responseText;
 		if (plainText) {
-			// alert(plainText);
 
 			parkingsArray = plainText.split(";");
 			parkingsArray.length -= 1; // empty
-
-			// var markerElements = xmlDoc.getElementsByTagName('marker');
-			// alert(markerElements[0].getAttribute("srl"));
-			// alert(markerElements.length);
 
 			for (i = 0; i < parkingsArray.length; i++) {
 				var parking = parkingsArray[i].split(",");
@@ -214,7 +201,8 @@ function httpCallBackFunction_loadMarkers() {
 				var myLatlng = new google.maps.LatLng(jsonEncode.latitude,
 						jsonEncode.longitude);
 
-				var contentString = '<div id=\"InfoWindow\" value=\"' + jsonEncode.availability +'\">';
+				var contentString = '<div id=\"InfoWindow\" value=\"'
+						+ jsonEncode.availability + '\">';
 
 				if ($(".signInHeader").attr("value") == "in") {
 					contentString += "<div id=\"InfoWindowTitle\">"
@@ -239,9 +227,8 @@ function httpCallBackFunction_loadMarkers() {
 							+ ' Available on: <p id="InfoWindowDays">'
 							+ daysAvail + '</p>'
 							+ '<p id="InfoWindowST"> From ' + hour_start + ":"
-							+ min_start + ' to '
-							+ hour_end + ":" + min_end + '</p>'
-							+ '<p id="InfoWindowPrice"> Price: '
+							+ min_start + ' to ' + hour_end + ":" + min_end
+							+ '</p>' + '<p id="InfoWindowPrice"> Price: '
 							+ jsonEncode.price + '</p>'
 							+ '<p id="InfoWindowScore"> Score '
 							+ jsonEncode.score + "/5" + '</p>' + '</br>'
@@ -249,7 +236,7 @@ function httpCallBackFunction_loadMarkers() {
 				}
 
 				contentString += "</div>";
-				
+
 				if (jsonEncode.availability == "true") {
 					var image = {
 						url : 'resources/parking_lot_maps.png'
@@ -278,21 +265,23 @@ function httpCallBackFunction_loadMarkers() {
 	}
 }
 
+// Add slider, date picker and stuff to Infowindows
+// This function is called when Infowindow DOM is ready
 function addJSRes() {
-	
-	//Disable if parking unavailable
-	if($("#InfoWindow").attr("value") == "false"){
+
+	// Disable if parking unavailable
+	if ($("#InfoWindow").attr("value") == "false") {
 		$("#InfoWindow *").attr("disabled", "disabled").off('click');
 		$("#ServerResponseRes").html("This parking is currently unavailable");
 		$("#InfoWindowButtonHolder").remove();
 	}
-	
+
 	// Add date picker to infoWindow
 	$("#datepicker").datepicker({
 		showButtonPanel : true,
 		showOn : "button",
 		buttonImage : "resources/date-picker-icon.png", // Source:
-														// http://cdn.fleetly.com/assets/A/85/date-picker-icon.png
+		// http://cdn.fleetly.com/assets/A/85/date-picker-icon.png
 		buttonImageOnly : true,
 		beforeShowDay : function(date) {
 			var weekDay = date.getDay();
@@ -419,17 +408,21 @@ function addJSRes() {
 					});
 }
 
+// Bind infowindows to markers
 function addInfowindow(marker, content, mrkID) {
 	infowindow = new google.maps.InfoWindow({
 		content : content
 	});
 
+	// call to addJSRes() when user has click on the infoWindow and its DOM is
+	// ready
 	google.maps.event.addListener(infowindow, 'domready', function() {
 		if ($(".signInHeader").attr("value") == "in") {
 			addJSRes();
 		}
 	});
 
+	// On infowindow click get content
 	google.maps.event.addListener(marker, 'click', function() {
 		selectedMarkerID = mrkID;
 		infowindow.setContent("" + content);
@@ -439,6 +432,7 @@ function addInfowindow(marker, content, mrkID) {
 
 }
 
+// Called when user click on the button to make a reservation
 function makeReservation(mrkId) {
 	try {
 		xmlHttpReq = new XMLHttpRequest();
@@ -454,7 +448,7 @@ function makeReservation(mrkId) {
 
 			xmlHttpReq.open('GET', url, true);
 			xmlHttpReq.send(null);
-		}else{
+		} else {
 			$("#ServerResponseRes").attr("class", "ServerResponseResFail");
 			$("#ServerResponseRes").html("Invalid date")
 		}
@@ -463,14 +457,11 @@ function makeReservation(mrkId) {
 	}
 }
 
+// MakeReservation() Ajax callback function
 function httpCallBackFunction_ajaxReservation() {
-
 	if (xmlHttpReq.readyState == 1) {
-		// updateStatusMessage("<blink>Opening HTTP...</blink>");
 	} else if (xmlHttpReq.readyState == 2) {
-		// updateStatusMessage("<blink>Sending query...</blink>");
 	} else if (xmlHttpReq.readyState == 3) {
-		// updateStatusMessage("<blink>Receiving...</blink>");
 	} else if (xmlHttpReq.readyState == 4) {
 		res = xmlHttpReq.responseText;
 		if (res) {
@@ -488,16 +479,18 @@ function httpCallBackFunction_ajaxReservation() {
 	}
 }
 
+// Called when user click on My Reservation link
 function showMyReservation() {
 	getMyReservation();
 	$("#myReservationFloat").dialog('open');
 }
 
+// Called when user click on Cancel button in My Reservation dialog
 function cancelMyReservation() {
 	var canceledRes = [];
 	var countRes = 0;
 	$("#myReservationFloat > table > tbody > tr > td > input").each(function() {
-		countRes = countRes+1;
+		countRes = countRes + 1;
 		if ($(this).prop('checked')) {
 			canceledRes.push($(this).attr("id"));
 			cancelRes($(this).attr("id"));
@@ -505,13 +498,15 @@ function cancelMyReservation() {
 	});
 	for (id in canceledRes) {
 		$("#tr" + canceledRes[id]).remove();
-		if(countRes-1==id){
-			$("#myReservationFloat").html('<div id=\"noReservation\">You have no reservations</div>');
+		if (countRes - 1 == id) {
+			$("#myReservationFloat").html(
+					'<div id=\"noReservation\">You have no reservations</div>');
 		}
 	}
 
 }
 
+// Ajax call that actually cancel the reservation
 function cancelRes(resId) {
 	try {
 		xmlHttpReq = new XMLHttpRequest();
@@ -527,15 +522,11 @@ function cancelRes(resId) {
 	}
 }
 
+// Ajax call back function of cancelRes()
 function httpCallBackFunction_ajaxCancelRes() {
-	// alert("httpCallBackFunction_getAjaxRequest");
-
 	if (xmlHttpReq.readyState == 1) {
-		// updateStatusMessage("<blink>Opening HTTP...</blink>");
 	} else if (xmlHttpReq.readyState == 2) {
-		// updateStatusMessage("<blink>Sending query...</blink>");
 	} else if (xmlHttpReq.readyState == 3) {
-		// updateStatusMessage("<blink>Receiving...</blink>");
 	} else if (xmlHttpReq.readyState == 4) {
 		res = xmlHttpReq.responseText;
 		if (res) {
@@ -551,6 +542,7 @@ function httpCallBackFunction_ajaxCancelRes() {
 	}
 }
 
+// Get user reservations
 function getMyReservation() {
 	if (!infowindow) {
 		infowindow.close();
@@ -570,76 +562,15 @@ function getMyReservation() {
 	}
 }
 
+// Ajax call back function of getMyReservation
 function httpCallBackFunction_ajaxMyReservation() {
-	// alert("httpCallBackFunction_getAjaxRequest");
-
 	if (xmlHttpReq.readyState == 1) {
-		// updateStatusMessage("<blink>Opening HTTP...</blink>");
 	} else if (xmlHttpReq.readyState == 2) {
-		// updateStatusMessage("<blink>Sending query...</blink>");
 	} else if (xmlHttpReq.readyState == 3) {
-		// updateStatusMessage("<blink>Receiving...</blink>");
 	} else if (xmlHttpReq.readyState == 4) {
 		res = xmlHttpReq.responseText;
 		if (res) {
 			$("#myReservationFloat").html(res);
-		} else {
-			alert("No data.");
-		}
-	}
-}
-
-// Prolly nothing relevant after this point
-//
-function postAjaxRequest(postMsg, markerID, guestbookName, rspMsgList) {
-	// alert("postAjaxRequest");
-	try {
-		xmlHttpReq = new XMLHttpRequest();
-		xmlHttpReq.onreadystatechange = httpCallBackFunction_postAjaxRequest;
-		var url = "/sign";
-
-		xmlHttpReq.open("POST", url, true);
-		xmlHttpReq.setRequestHeader('Content-Type',
-				'application/x-www-form-urlencoded');
-
-		var postMsgValue = encodeURIComponent(document.getElementById(postMsg).value);
-		var markerIDValue = markerID;
-		var guestbookNameValue = guestbookName;
-
-		xmlHttpReq.send("postMsg=" + postMsgValue + "&markerID="
-				+ markerIDValue + "&guestbookName=" + guestbookNameValue);
-
-		// alert();
-
-	} catch (e) {
-		alert("Error: " + e);
-	}
-}
-
-function httpCallBackFunction_postAjaxRequest() {
-	// alert("httpCallBackFunction_postAjaxRequest");
-
-	if (xmlHttpReq.readyState == 1) {
-		// updateStatusMessage("<blink>Opening HTTP...</blink>");
-	} else if (xmlHttpReq.readyState == 2) {
-		// updateStatusMessage("<blink>Sending query...</blink>");
-	} else if (xmlHttpReq.readyState == 3) {
-		// updateStatusMessage("<blink>Receiving...</blink>");
-	} else if (xmlHttpReq.readyState == 4) {
-		var xmlDoc = null;
-
-		if (xmlHttpReq.responseXML) {
-			xmlDoc = xmlHttpReq.responseXML;
-		} else if (xmlHttpReq.responseText) {
-			var parser = new DOMParser();
-			xmlDoc = parser
-					.parseFromString(xmlHttpReq.responseText, "text/xml");
-		}
-
-		if (xmlDoc) {
-			// alert(xmlHttpReq.responseText);
-			document.getElementById("msglist_" + selectedMarkerID).innerHTML = xmlHttpReq.responseText;
-			document.getElementById("msgbox_" + selectedMarkerID).value = "";
 		} else {
 			alert("No data.");
 		}

@@ -197,12 +197,6 @@ body {
 	height:20px;
 }
 
-textarea[name=InfoWindow] {
-	resize: none;
-	float: left;
-}
-
-
 #bigHeader {
 	color: #FFFFFF;
 	font-size: x-large;
@@ -352,17 +346,6 @@ table#myReservationTable td {
 
 #source {
 	font-size: x-small;
-}
-
-.msglist {
-	width: 260px;
-	height: 160px;
-	overflow-y: auto;
-	background-color: #E6E6E6; /* @PartB Change background color */
-}
-
-#oldMsgList {
-	display: none;
 }
 
 .userName {
