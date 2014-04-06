@@ -186,7 +186,7 @@ public class QueryProcessorServlet extends HttpServlet {
 				responseHTMLString = "<div id=\"noReservation\">You have no reservations</div>";
 			} else {
 				responseHTMLString += "</table>";
-				responseHTMLString += "<input id=\"cancelResButton\" type=\"button\" value=\"Cancel selected reservations\" onclick=\"cancelMyReservation()\"/>";
+				responseHTMLString += "<div id=\"cancelResButtonHolder\" ><input id=\"cancelResButton\" type=\"button\" value=\"Cancel selected reservations\" onclick=\"cancelMyReservation()\"/></div>";
 			}
 		} else if (cancelRes != null) {
 			try {

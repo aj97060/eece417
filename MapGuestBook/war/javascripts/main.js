@@ -284,6 +284,7 @@ function addJSRes() {
 	if($("#InfoWindow").attr("value") == "false"){
 		$("#InfoWindow *").attr("disabled", "disabled").off('click');
 		$("#ServerResponseRes").html("This parking is currently unavailable");
+		$("#InfoWindowButtonHolder").remove();
 	}
 	
 	// Add date picker to infoWindow

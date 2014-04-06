@@ -18,14 +18,17 @@ body {
 #ServerResponseRes {
 	font-size: medium;
 	font-weight: bold;
+	margin-top:33px;
 }
 
 .ServerResponseResFail {
 	color: red;
+	font-size: small  !important;
 }
 
 .ServerResponseResSucc {
 	color: green;
+	font-size: small  !important;
 }
 
 #SidePanelSearch {
@@ -146,27 +149,23 @@ body {
 	font-family: Verdana, Helvetica, sans-serif;
 }
 
-#InfoWindowButtonHolder{
-	text-align: center;
-}
-
 #InfoWindow{
 	width: 310px;
 	height: 300px;
 	text-align:center;
+	background-color: #EEEEEE;
 }
 
 #InfoWindowTitle {
-	font-size: medium;
+	font-size: large;
 	font-weight: bold;
-	color: blue;
+	color: white;
 	text-align:left;
+	background-color: #F8B951;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	padding-left:10px;
 }
-
-#InfoWindowButton {
-	float: right;
-}
-
 
 #time-range{
 	margin-top: 5px;
@@ -198,18 +197,6 @@ body {
 	height:20px;
 }
 
-#MyReservationPane {
-	
-}
-
-#DetailedReservation {
-	
-}
-
-#MarkerPane {
-	
-}
-
 textarea[name=InfoWindow] {
 	resize: none;
 	float: left;
@@ -220,7 +207,7 @@ textarea[name=InfoWindow] {
 	color: #FFFFFF;
 	font-size: x-large;
 	padding-left: 10px;
-	text-shadow: 5px 5px 5px #F8B951;
+	text-shadow: 3px 3px 3px #F8B951;
 }
 
 .signInHeader {
@@ -229,6 +216,125 @@ textarea[name=InfoWindow] {
 	text-align: right;
 	padding-right: 10px;
 }
+
+table#myReservationTable {
+	border-spacing: 10px;
+	text-align: center;
+}
+
+table#myReservationTable td {
+	font-weight: normal;
+	font-size: medium;
+}
+
+#InfoWindowButtonHolder{
+	text-align: center;
+}
+
+#cancelResButtonHolder{
+	text-align: center;
+}
+
+/* This button was generated using CSSButtonGenerator.com */
+#InfoWindowButton {
+	float: right;
+	margin-top: 10px;
+	margin-right: 5px;
+	-moz-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffc477), color-stop(1, #fb9e25) );
+	background:-moz-linear-gradient( center top, #ffc477 5%, #fb9e25 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc477', endColorstr='#fb9e25');
+	background-color:#ffc477;
+	-webkit-border-top-left-radius:13px;
+	-moz-border-radius-topleft:13px;
+	border-top-left-radius:13px;
+	-webkit-border-top-right-radius:13px;
+	-moz-border-radius-topright:13px;
+	border-top-right-radius:13px;
+	-webkit-border-bottom-right-radius:13px;
+	-moz-border-radius-bottomright:13px;
+	border-bottom-right-radius:13px;
+	-webkit-border-bottom-left-radius:13px;
+	-moz-border-radius-bottomleft:13px;
+	border-bottom-left-radius:13px;
+	text-indent:0px;
+	border:1px solid #eeb44f;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	font-style:normal;
+	height:30px;
+	line-height:23px;
+	width:40%;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 3px 0px #cc9f52;
+}
+#InfoWindowButton:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fb9e25), color-stop(1, #ffc477) );
+	background:-moz-linear-gradient( center top, #fb9e25 5%, #ffc477 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#ffc477');
+	background-color:#fb9e25;
+}
+#InfoWindowButton:active {
+	position:relative;
+	top:1px;
+} 
+/* This button was generated using CSSButtonGenerator.com */
+
+
+/* This button was generated using CSSButtonGenerator.com */
+#cancelResButton {
+	margin: 10px auto;
+	-moz-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffc477), color-stop(1, #fb9e25) );
+	background:-moz-linear-gradient( center top, #ffc477 5%, #fb9e25 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc477', endColorstr='#fb9e25');
+	background-color:#ffc477;
+	-webkit-border-top-left-radius:13px;
+	-moz-border-radius-topleft:13px;
+	border-top-left-radius:13px;
+	-webkit-border-top-right-radius:13px;
+	-moz-border-radius-topright:13px;
+	border-top-right-radius:13px;
+	-webkit-border-bottom-right-radius:13px;
+	-moz-border-radius-bottomright:13px;
+	border-bottom-right-radius:13px;
+	-webkit-border-bottom-left-radius:13px;
+	-moz-border-radius-bottomleft:13px;
+	border-bottom-left-radius:13px;
+	text-indent:0px;
+	border:1px solid #eeb44f;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:19px;
+	font-weight:bold;
+	font-style:normal;
+	height:40px;
+	line-height:35px;
+	width:85%;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 3px 0px #cc9f52;
+}
+#cancelResButton:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fb9e25), color-stop(1, #ffc477) );
+	background:-moz-linear-gradient( center top, #fb9e25 5%, #ffc477 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#ffc477');
+	background-color:#fb9e25;
+}
+#cancelResButton:active {
+	position:relative;
+	top:1px;
+} 
+/* This button was generated using CSSButtonGenerator.com */
 
 #map-canvas {
 	height: 80%;

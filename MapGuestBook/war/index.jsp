@@ -42,9 +42,6 @@
 			  
 			// Load the selected markers	
 			loadMarkers();   
-		
-			
-    		
 			    
 		}      
  	
